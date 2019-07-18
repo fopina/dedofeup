@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>InfoDedo</title>	 
+		<meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="apple-touch-icon" href="{{ url_for('static',filename='icon/touch-iphone.png') }}?1" />
+		<link rel="apple-touch-icon" sizes="76x76" href="{{ url_for('static',filename='icon/touch-ipad.png') }}?1" />
+		<link rel="apple-touch-icon" sizes="120x120" href="{{ url_for('static',filename='icon/touch-iphone-retina.png') }}?1" />
+		<link rel="apple-touch-icon" sizes="152x152" href="{{ url_for('static',filename='icon/touch-ipad-retina.png') }}?1" />
+
+		<link rel="apple-touch-startup-image" href="{{ url_for('static',filename='icon/startup-iphone.png') }}">
+
+		<link href="{{ url_for('static',filename='icon/startup-iphone-retina.png') }}" media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
+
+		<link href="{{ url_for('static',filename='icon/startup-iphone5-retina.png') }}" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
+
+
+		<link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap.min.css') }}">
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	    <!--[if lt IE 9]>
+	      <script src="{{ url_for('static',filename='js/html5shiv.js') }}"></script>
+	      <script src="{{ url_for('static',filename='js/respond.min.js') }}"></script>
+	    <![endif]-->
+	</head>
+	
+	<body>
+		<div class="container" style="margin-top:10px;">
+			
+<div class="panel panel-default">
+	  <!-- Default panel contents -->
+	  <div class="panel-heading text-center">
+	  	<a href="{{ url_for('index', back=back+1) }}">
+	  		<span class="glyphicon glyphicon-backward pull-left"></span>
+	  	</a>
+	  		{{ date }} <i>{{ info['class'][0] }}</i>
+	  	{% if back > 0 %}
+		<a href="{{ url_for('index', back=back-1) }}">
+			<span class="glyphicon glyphicon-forward pull-right"></span>
+		</a>
+		{% else %}
+		<a href="{{ url_for('index', reload=1) }}">
+			<span class="glyphicon glyphicon-refresh pull-right"></span>
+		</a>
+		{% endif %}
+	  </div>
+
+	  <!-- Table -->
+	  <table class="table text-center">
+	  	<tr>
+	    	<th colspan="2" class="text-center">Picanços Matinais</th>
+	    </tr>
+	    {% for marca in info['marca am'] %}
+	    {% if loop.index % 2 %}
+	    <tr>
+	    {% endif %}
+			<td>{{ marca }}</td>
+		{% if not loop.index % 2 %}
+	    </tr>
+	    {% endif %}
+		{% endfor %}
+	  </table>
+
+	  <table class="table text-center">
+	  	<tr>
+	    	<th colspan="2" class="text-center">Picanços de Barriga Cheia</th>
+	    </tr>
+	    {% for marca in info['marca pm'] %}
+	    {% if loop.index % 2 %}
+	    <tr>
+	    {% endif %}
+			<td>{{ marca }}</td>
+		{% if not loop.index % 2 %}
+	    </tr>
+	    {% endif %}
+		{% endfor %}
+	  </table>
+	</div>
+	<div class="panel panel-default">
+	  <table class="table text-center">
+	  	<tr>
+	    	<th class="text-center">Saldo do Dia</th>
+	    	<th class="text-center">Saldo Acumulado</th>
+	    </tr>
+	    <tr>
+			<td>{{ info['saldo-d'][0] }}</td>
+			<td>{{ info['saldo-a'][0] }}</td>
+		</tr>
+	  </table>
+	</div>
+	<div class="row text-center">
+		<a href="{{ url_for('logout') }}">
+			Sair
+			<span class="glyphicon glyphicon-log-out"></span>
+		</a>
+	</div>
+			</div>
+		
+		<script src="js/jquery-1.11.0.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script>
+	//if ((window) && (window.navigator) && (window.navigator.standalone == true)) {
+		var geral = null;
+
+		$(document).on("click","a",
+	        function( event ){
+		        // Stop the default behavior of the browser, which
+		        // is to change the URL of the page.
+		        event.preventDefault();
+
+		        // Manually change the location of the page to stay in
+		        // "Standalone" mode and change the URL at the same time.
+		        location.href = $( this ).attr( "href" );
+	        }
+    	);
+	//}
+</script>
+	</body>
+</html>

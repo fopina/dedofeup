@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		{% block head %}
+		<title>{% block title %}{% endblock %}</title>	 
+		<meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="apple-touch-icon" href="{{ url_for('static',filename='icon/touch-iphone.png') }}?1" />
+		<link rel="apple-touch-icon" sizes="76x76" href="{{ url_for('static',filename='icon/touch-ipad.png') }}?1" />
+		<link rel="apple-touch-icon" sizes="120x120" href="{{ url_for('static',filename='icon/touch-iphone-retina.png') }}?1" />
+		<link rel="apple-touch-icon" sizes="152x152" href="{{ url_for('static',filename='icon/touch-ipad-retina.png') }}?1" />
+
+		<link rel="apple-touch-startup-image" href="{{ url_for('static',filename='icon/startup-iphone.png') }}">
+
+		<link href="{{ url_for('static',filename='icon/startup-iphone-retina.png') }}" media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
+
+		<link href="{{ url_for('static',filename='icon/startup-iphone5-retina.png') }}" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
+
+
+		<link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap.min.css') }}">
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	    <!--[if lt IE 9]>
+	      <script src="{{ url_for('static',filename='js/html5shiv.js') }}"></script>
+	      <script src="{{ url_for('static',filename='js/respond.min.js') }}"></script>
+	    <![endif]-->
+		{% endblock %}
+	</head>
+	
+	<body>
+		<div class="container" style="margin-top:10px;">
+			{% block messages %}
+			{% with messages = get_flashed_messages(with_categories=true) %}
+				{% for category, message in messages %}
+			<div class="alert alert-{{ category }} fade in text-center">
+      			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+      			{{ message }}
+    		</div>
+				{% endfor %}
+			{% endwith %}
+			{% endblock %}
+			{% block content %}{% endblock %}
+		</div>
+		
+		<script src="{{ url_for('static',filename='js/jquery-1.11.0.min.js') }}"></script>
+		<script src="{{ url_for('static',filename='js/bootstrap.min.js') }}"></script>
+		{% block scripts %}
+        {% endblock %}
+	</body>
+</html>
