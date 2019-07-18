@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block title %}InfoDedo{% endblock %}
+{% block content %}
+	<div class="panel panel-default">
+	  <!-- Default panel contents -->
+	  <div class="panel-heading text-center">
+	  	<a href="{{ url_for('index', back=back+1) }}">
+	  		<span class="glyphicon glyphicon-backward pull-left"></span>
+	  	</a>
+	  		{{ date }} <i>{{ info['class'][0] }}</i>
+	  	{% if back > 0 %}
+		<a href="{{ url_for('index', back=back-1) }}">
+			<span class="glyphicon glyphicon-forward pull-right"></span>
+		</a>
+		{% else %}
+		<a href="{{ url_for('index', reload=1) }}">
+			<span class="glyphicon glyphicon-refresh pull-right"></span>
+		</a>
+		{% endif %}
+	  </div>
+
+	  <!-- Table -->
+	  <table class="table text-center">
+	  	<tr>
+	    	<th colspan="2" class="text-center">Picanços Matinais</th>
+	    </tr>
+	    {% for marca in info['marca am'] %}
+	    {% if loop.index % 2 %}
+	    <tr>
+	    {% endif %}
+			<td>{{ marca }}</td>
+		{% if not loop.index % 2 %}
+	    </tr>
+	    {% endif %}
+		{% endfor %}
+	  </table>
+
+	  <table class="table text-center">
+	  	<tr>
+	    	<th colspan="2" class="text-center">Picanços de Barriga Cheia</th>
+	    </tr>
+	    {% for marca in info['marca pm'] %}
+	    {% if loop.index % 2 %}
+	    <tr>
+	    {% endif %}
+			<td>{{ marca }}</td>
+		{% if not loop.index % 2 %}
+	    </tr>
+	    {% endif %}
+		{% endfor %}
+	  </table>
+	</div>
+	<div class="panel panel-default">
+	  <table class="table text-center">
+	  	<tr>
+	    	<th class="text-center">Saldo do Dia</th>
+	    	<th class="text-center">Saldo Acumulado</th>
+	    </tr>
+	    <tr>
+			<td>{{ info['saldo-d'][0] }}</td>
+			<td>{{ info['saldo-a'][0] }}</td>
+		</tr>
+	  </table>
+	</div>
+	<div class="row text-center">
+		<a href="{{ url_for('logout') }}">
+			Sair
+			<span class="glyphicon glyphicon-log-out"></span>
+		</a>
+	</div>
+{% endblock %}
+{% block scripts %}
+<script>
+	//if ((window) && (window.navigator) && (window.navigator.standalone == true)) {
+		var geral = null;
+
+		$(document).on("click","a",
+	        function( event ){
+		        // Stop the default behavior of the browser, which
+		        // is to change the URL of the page.
+		        event.preventDefault();
+
+		        // Manually change the location of the page to stay in
+		        // "Standalone" mode and change the URL at the same time.
+		        location.href = $( this ).attr( "href" );
+	        }
+    	);
+	//}
+</script>
+{% endblock %}
