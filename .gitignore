@@ -1,3 +1,7 @@
+/.vscode
 /.idea
 /env
 *.pyc
+
+template
+build
