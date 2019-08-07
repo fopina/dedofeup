@@ -1,0 +1,44 @@
+language: minimal
+
+branches:
+  only:
+    - remake
+
+jobs:
+  include:
+    - name: build function
+      before_install:
+      - |
+          git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE '(dedofeup.yml$)|(^(dedofeup|cli))/' || {
+            echo "Function was not updated, stopping build process."
+            exit
+          }
+      script:
+      - curl -sSL https://cli.openfaas.com | sudo sh
+      - make build
+    - name: build page
+      language: node_js
+      node_js:
+        - "stable"
+      before_install:
+      - |
+          git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE '(^web)/' || {
+            echo "Page was not updated, stopping build process."
+            exit
+          }
+      cache:
+        directories:
+        - web/node_modules
+      script:
+        - cd web
+        - npm install
+        - npm run-script build
+        - echo dedofeup.skmobi.com > build/CNAME
+      deploy:
+        provider: pages
+        skip_cleanup: true
+        github_token: $GITHUB_TOKEN
+        local_dir: web/build
+        on:  # FIXME remove
+          tags: false
+          all_branches: true
