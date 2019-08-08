@@ -25,6 +25,18 @@ func Handle(req handler.Request) (handler.Response, error) {
 	var err error
 	var input jsonInput
 
+	if req.Method == "OPTIONS" {
+		// allow any origin for this function
+		return handler.Response{
+			Body:       nil,
+			StatusCode: http.StatusOK,
+			Header: map[string][]string{
+				"Access-Control-Allow-Origin":  []string{"*"},
+				"Access-Control-Allow-Headers": []string{"Content-Type"},
+			},
+		}, err
+	}
+
 	json.Unmarshal(req.Body, &input)
 
 	status := http.StatusOK
@@ -41,6 +53,10 @@ func Handle(req handler.Request) (handler.Response, error) {
 	return handler.Response{
 		Body:       res,
 		StatusCode: status,
+		Header: map[string][]string{
+			"Access-Control-Allow-Origin":  []string{"*"},
+			"Access-Control-Allow-Headers": []string{"Content-Type"},
+		},
 	}, err
 }
 
