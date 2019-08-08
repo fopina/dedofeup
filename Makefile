@@ -6,5 +6,5 @@ build: template
 	faas-cli build --build-arg GO111MODULE=on -f dedofeup.yml
 
 template:
-	faas-cli template pull https://github.com/bmcstdio/golang-http-template.git --overwrite
+	faas-cli template pull https://github.com/fopina/golang-http-template.git --overwrite
 
