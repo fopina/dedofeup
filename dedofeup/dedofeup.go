@@ -35,6 +35,15 @@ type Day struct {
 	AfternoonOut string
 }
 
+// UnauthorizedError error thrown when bad credentials are provided (user and password or invalid/expired token)
+type UnauthorizedError struct {
+	s string
+}
+
+func (e *UnauthorizedError) Error() string {
+	return e.s
+}
+
 // GetToken extract token from cookiejar
 func GetToken(client *http.Client) string {
 	u, err := url.Parse(urlData)
@@ -91,7 +100,7 @@ func Login(username, password string) (string, error) {
 		string(body),
 		"<meta http-equiv=\"Refresh\" content=\"0;url="+urlData+"\">",
 	) {
-		return "", fmt.Errorf("invalid login")
+		return "", &UnauthorizedError{"invalid login"}
 	}
 
 	return GetToken(client), nil
@@ -226,7 +235,7 @@ func setupJar(tokenString string, jar *cookiejar.Jar) error {
 	}
 	token := strings.Split(tokenString, "#")
 	if len(token) != 2 {
-		return fmt.Errorf("invalid token")
+		return &UnauthorizedError{"invalid token"}
 	}
 
 	var cookies []*http.Cookie

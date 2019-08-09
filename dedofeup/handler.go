@@ -43,7 +43,13 @@ func Handle(req handler.Request) (handler.Response, error) {
 	data, err := handleAux(input)
 
 	if err != nil {
-		status = http.StatusBadRequest
+		switch err.(type) {
+		case *UnauthorizedError:
+			status = http.StatusUnauthorized
+		default:
+			status = http.StatusBadRequest
+		}
+
 		out := jsonOutput{}
 		out.Error = err.Error()
 		data = &out

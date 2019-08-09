@@ -25,7 +25,7 @@ func TestInvalidLoginRequest(t *testing.T) {
 
 	res, err := Handle(req)
 
-	assert.Equal(t, res.StatusCode, 400)
+	assert.Equal(t, res.StatusCode, 401)
 	assert.Equal(
 		t, string(res.Body),
 		`{"Token":"","Error":"invalid login","Days":null}`,
