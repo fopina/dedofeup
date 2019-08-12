@@ -1,6 +1,6 @@
 {
-  "name": "web",
-  "short_name": "web",
+  "name": "DedoFEUP",
+  "short_name": "DedoFEUP",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",

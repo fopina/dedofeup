@@ -2,7 +2,7 @@ language: minimal
 
 branches:
   only:
-    - remake
+    - master
 
 jobs:
   include:
@@ -39,6 +39,3 @@ jobs:
         skip_cleanup: true
         github_token: $GITHUB_TOKEN
         local_dir: web/build
-        on:  # FIXME remove
-          tags: false
-          all_branches: true

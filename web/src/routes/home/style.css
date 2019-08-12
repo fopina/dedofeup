@@ -8,6 +8,8 @@
   padding: 16px;
 }
 
-.cardBody {
-  padding: 16px;
+.fab {
+  position:fixed;
+  bottom:20px;
+  right:20px;
 }

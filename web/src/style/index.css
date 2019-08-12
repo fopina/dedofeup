@@ -1,3 +1,18 @@
+:root {
+  --mdc-theme-primary: black;
+  --mdc-theme-secondary: #828080;
+}
+
+.mdc-drawer .mdc-list-item--activated .mdc-list-item__graphic {
+  color: black !important;
+}
+
+.mdc-drawer .mdc-list-item--activated {
+  color: black !important;
+}
+
+
+
 html, body {
 	height: 100%;
 	width: 100%;
@@ -54,4 +69,8 @@ html, body {
 
 #app .page {
   padding-top: 56px;
+}
+
+.mdc-card {
+  margin-bottom: 20px;
 }

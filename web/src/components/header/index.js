@@ -33,7 +33,7 @@ export default class Header extends Component {
 	};
 
 	goHome = this.linkTo('/');
-	goToMyProfile = this.linkTo('/profile');
+	goToAbout = this.linkTo('/about');
 
 	toggleDarkTheme = () => {
 		this.setState(
@@ -52,7 +52,6 @@ export default class Header extends Component {
 	}
 
 	render(props) {
-		console.log(props.selectedRoute);
 		return (
 			<div>
 				<TopAppBar className="topappbar">
@@ -61,22 +60,22 @@ export default class Header extends Component {
 							<TopAppBar.Icon menu onClick={this.openDrawer}>
 								menu
 							</TopAppBar.Icon>
-							<TopAppBar.Title>Preact app</TopAppBar.Title>
+							<TopAppBar.Title>DedoFEUP</TopAppBar.Title>
 						</TopAppBar.Section>
 						<TopAppBar.Section align-end shrink-to-fit onClick={this.openSettings}>
 							<TopAppBar.Icon>settings</TopAppBar.Icon>
 						</TopAppBar.Section>
 					</TopAppBar.Row>
 				</TopAppBar>
-				<Drawer modal ref={this.drawerRef}>
+				<Drawer modal ref={this.drawerRef} tabindex={0}>
 					<Drawer.DrawerContent>
 						<Drawer.DrawerItem selected={props.selectedRoute === '/'} onClick={this.goHome}>
 							<List.ItemGraphic>home</List.ItemGraphic>
 							Home
 						</Drawer.DrawerItem>
-						<Drawer.DrawerItem selected={props.selectedRoute === '/profile'} onClick={this.goToMyProfile}>
-							<List.ItemGraphic>account_circle</List.ItemGraphic>
-							Profile
+						<Drawer.DrawerItem selected={props.selectedRoute === '/about'} onClick={this.goToAbout}>
+							<List.ItemGraphic>info</List.ItemGraphic>
+							About
 						</Drawer.DrawerItem>
 					</Drawer.DrawerContent>
 				</Drawer>
