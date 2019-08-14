@@ -17,6 +17,7 @@ const urlLogout = "https://sigarra.up.pt/feup/pt/vld_validacao.sair"
 const loginApp = "162"
 const userAgent = "Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.1) Gecko/2008071615 Fedora/3.0.1-1.fc9 Firefox/3.0.1 DedoFEUP/1.0"
 
+const emptyTime = "---"
 // these two depend on urlData
 const loginAmo = "1674"
 const loginAddress = "ASSD_TLP_GERAL.FUNC_VIEW"
@@ -184,8 +185,8 @@ func GetData(tokenString string) ([]Day, error) {
 		day := Day{}
 		day.Type = match[1]
 		for _, match2 := range dayCols.FindAllStringSubmatch(match[2], -1) {
-			if match2[2] == "---" {
-				data = "---"
+			if match2[2] == emptyTime {
+				data = emptyTime
 			} else {
 				data = timeRE.FindString(match2[2])
 			}
@@ -205,13 +206,17 @@ func GetData(tokenString string) ([]Day, error) {
 				if day.MorningIn == "" {
 					day.MorningIn = data
 				} else {
-					day.MorningOut = data
+					if (day.MorningOut == "" || data != emptyTime) {
+						day.MorningOut = data
+					}
 				}
 			case strings.Contains(match2[1], "marca pm"):
 				if day.AfternoonIn == "" {
 					day.AfternoonIn = data
 				} else {
-					day.AfternoonOut = data
+					if (day.AfternoonOut == "" || data != emptyTime) {
+						day.AfternoonOut = data
+					}
 				}
 			case strings.Contains(match2[1], "horario k"):
 				// ignore this column
