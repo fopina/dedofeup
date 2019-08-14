@@ -18,6 +18,7 @@ const loginApp = "162"
 const userAgent = "Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.1) Gecko/2008071615 Fedora/3.0.1-1.fc9 Firefox/3.0.1 DedoFEUP/1.0"
 
 const emptyTime = "---"
+
 // these two depend on urlData
 const loginAmo = "1674"
 const loginAddress = "ASSD_TLP_GERAL.FUNC_VIEW"
@@ -206,7 +207,7 @@ func GetData(tokenString string) ([]Day, error) {
 				if day.MorningIn == "" {
 					day.MorningIn = data
 				} else {
-					if (day.MorningOut == "" || data != emptyTime) {
+					if day.MorningOut == "" || data != emptyTime {
 						day.MorningOut = data
 					}
 				}
@@ -214,7 +215,7 @@ func GetData(tokenString string) ([]Day, error) {
 				if day.AfternoonIn == "" {
 					day.AfternoonIn = data
 				} else {
-					if (day.AfternoonOut == "" || data != emptyTime) {
+					if day.AfternoonOut == "" || data != emptyTime {
 						day.AfternoonOut = data
 					}
 				}
