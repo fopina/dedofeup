@@ -31,8 +31,8 @@ func Handle(req handler.Request) (handler.Response, error) {
 			Body:       nil,
 			StatusCode: http.StatusOK,
 			Header: map[string][]string{
-				"Access-Control-Allow-Origin":  []string{"*"},
-				"Access-Control-Allow-Headers": []string{"Content-Type"},
+				"Access-Control-Allow-Origin":  {"*"},
+				"Access-Control-Allow-Headers": {"Content-Type"},
 			},
 		}, err
 	}
@@ -60,8 +60,8 @@ func Handle(req handler.Request) (handler.Response, error) {
 		Body:       res,
 		StatusCode: status,
 		Header: map[string][]string{
-			"Access-Control-Allow-Origin":  []string{"*"},
-			"Access-Control-Allow-Headers": []string{"Content-Type"},
+			"Access-Control-Allow-Origin":  {"*"},
+			"Access-Control-Allow-Headers": {"Content-Type"},
 		},
 	}, err
 }

@@ -225,7 +225,7 @@ func GetData(tokenString string) ([]Day, error) {
 				// ignore this column
 			default:
 				// log unexpected ones for debugging
-				log.Printf("Unkown class %s with value %s\n", match2[1], match2[2])
+				log.Printf("Unknown class %s with value %s\n", match2[1], match2[2])
 			}
 		}
 		days = append(days, day)
