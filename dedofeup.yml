@@ -3,7 +3,7 @@ provider:
   name: openfaas
   gateway: http://127.0.0.1:8080
 functions:
-  dedofeup:
+  dedofeup${BUILD_ENV}:
     lang: golang-http
     handler: ./dedofeup
-    image: fopina/functions:dedofeup
+    image: fopina/functions:dedofeup${BUILD_ENV}

@@ -3,10 +3,13 @@ language: minimal
 branches:
   only:
     - master
+    - dev
 
 jobs:
   include:
-    - name: build function
+    - &buildit
+      name: build function
+      if: branch = master
       before_install:
       - |
           git diff --name-only $TRAVIS_COMMIT_RANGE | grep -qE '(dedofeup.yml$)|(^(dedofeup|cli))/' || {
@@ -16,7 +19,13 @@ jobs:
       script:
       - curl -sSL https://cli.openfaas.com | sudo sh
       - make build
+    - <<: *buildit
+      if: branch != master
+      name: build function DEV
+      env:
+        - BUILD_ENV="-dev"
     - name: build page
+      if: branch = master
       language: node_js
       node_js:
         - "stable"
