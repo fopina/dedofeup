@@ -19,7 +19,7 @@ jobs:
       script:
       - curl -sSL https://cli.openfaas.com | sudo sh
       - docker login -u ${DOCKER_USER} -p ${DOCKER_PASSWORD}
-      - faas-cli login -u ${FAAS_USER} -p ${FAAS_PASS} -g https://func.skmobi.com
+      - faas-cli login -u ${FAAS_USER} -p ${FAAS_PASS} -g ${FAAS_GATEWAY}
       - make
     - <<: *buildit
       if: branch != master

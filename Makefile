@@ -1,6 +1,9 @@
+FAAS_GATEWAY ?= http://127.0.0.1:8080
+
 .PHONY: build all dev
+
 all: build
-	faas-cli up --build-arg GO111MODULE=on -f dedofeup.yml -g https://func.skmobi.com
+	faas-cli up --build-arg GO111MODULE=on -f dedofeup.yml -g $(FAAS_GATEWAY)
 
 build: template
 	faas-cli build --build-arg GO111MODULE=on -f dedofeup.yml
