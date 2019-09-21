@@ -18,12 +18,15 @@ jobs:
           }
       script:
       - curl -sSL https://cli.openfaas.com | sudo sh
-      - make build
+      - docker login -u ${DOCKER_USER} -p ${DOCKER_PASSWORD}
+      - faas-cli login -u ${FAAS_USER} -p ${FAAS_PASS} -g https://func.skmobi.com
+      - make
     - <<: *buildit
       if: branch != master
       name: build function DEV
       env:
         - BUILD_ENV="-dev"
+        - ZEROSCALE=true
     - name: build page
       if: branch = master
       language: node_js
