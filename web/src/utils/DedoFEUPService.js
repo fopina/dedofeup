@@ -1,6 +1,10 @@
 import axios from 'axios';
 
-const BASE_URL = 'https://func.skmobi.com/function/dedofeup';
+const SERVER_URL = {
+    '_': 'https://func.skmobi.com/function/dedofeup',
+    'dev': 'https://func.skmobi.com/function/dedofeup-dev',
+    'local': 'http://localhost:9999',
+}
 
 var days = [];
 
@@ -29,12 +33,12 @@ export function isLoggedIn() {
 }
 
 export function refreshWithLogin(username, password) {
-    return axios.post(BASE_URL, {'username': username, 'password': password})
+    return axios.post(getServerEndpoint(), {'username': username, 'password': password})
                 .then(response => response.data)
 }
 
 export function refreshWithToken(token) {
-    return axios.post(BASE_URL, {'token': token})
+    return axios.post(getServerEndpoint(), {'token': token})
                 .then(response => response.data)
 }
 
@@ -56,4 +60,18 @@ export function getDays() {
 		days = JSON.parse(localStorage.getItem("days"))
 	}
     return days
+}
+
+function getServerEndpoint() {
+    var c = '_'
+    if (typeof window !== "undefined") {
+        c = localStorage.getItem("apiServer")
+	}
+    return SERVER_URL[c] || SERVER_URL['_']
+}
+
+export function setServerEndpoint(server) {
+    if (typeof window !== "undefined") {
+    	localStorage.setItem("apiServer", server)
+    }
 }

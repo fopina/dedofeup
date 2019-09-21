@@ -6,10 +6,13 @@ import Home from '../routes/home';
 import About from '../routes/about';
 import Login from '../routes/login';
 import NotFound from '../routes/404';
-import { isLoggedIn } from '../utils/DedoFEUPService';
+import { isLoggedIn, setServerEndpoint } from '../utils/DedoFEUPService';
 
 export default class App extends Component {
 	handleRoute = e => {
+		if (e.current.attributes && e.current.attributes.server) {
+			setServerEndpoint(e.current.attributes.server)
+		}
 		const isAuthed = isLoggedIn();
 		if ((e.current.attributes?e.current.attributes.auth:false) && !isAuthed) {
 			route("/login/", true)
