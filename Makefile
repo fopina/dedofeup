@@ -14,3 +14,6 @@ template:
 dev: export BUILD_ENV=-dev
 dev: export ZEROSCALE=true
 dev: all
+
+localweb: build
+	docker run -p 9999:8082 --rm -ti fopina/functions:dedofeup

@@ -2,6 +2,7 @@ package function
 
 import (
 	"encoding/json"
+	"log"
 	"net/http"
 
 	handler "github.com/openfaas-incubator/go-function-sdk"
@@ -53,6 +54,7 @@ func Handle(req handler.Request) (handler.Response, error) {
 		out := jsonOutput{}
 		out.Error = err.Error()
 		data = &out
+		log.Println(err)
 	}
 	res, err := json.Marshal(data)
 
