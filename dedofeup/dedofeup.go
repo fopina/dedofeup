@@ -35,6 +35,7 @@ type Day struct {
 	MorningOut,
 	AfternoonIn,
 	AfternoonOut string
+	FutureDay bool
 }
 
 // UnauthorizedError error thrown when bad credentials are provided (user and password or invalid/expired token)
@@ -177,7 +178,7 @@ func GetData(tokenString string) ([]Day, error) {
 		return nil, fmt.Errorf("not logged in")
 	}
 
-	dayRows := regexp.MustCompile(`(?s)<tr class="dia-(.+?)\b.*?">(.*?)</tr>`)
+	dayRows := regexp.MustCompile(`(?s)<tr class="dia-(.+?)\b(.*?)">(.*?)</tr>`)
 	dayCols := regexp.MustCompile(`(?s)<td .*?class="(.*?)">(.*?)</td>`)
 	timeRE := regexp.MustCompile(`-?\d+:\d+`)
 	var days []Day
@@ -185,7 +186,8 @@ func GetData(tokenString string) ([]Day, error) {
 	for _, match := range dayRows.FindAllStringSubmatch(html, -1) {
 		day := Day{}
 		day.Type = match[1]
-		for _, match2 := range dayCols.FindAllStringSubmatch(match[2], -1) {
+		day.FutureDay = strings.Contains(match[2], "futuro")
+		for _, match2 := range dayCols.FindAllStringSubmatch(match[3], -1) {
 			if match2[2] == emptyTime {
 				data = emptyTime
 			} else {

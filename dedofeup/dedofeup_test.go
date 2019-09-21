@@ -116,6 +116,7 @@ func TestGetData(t *testing.T) {
 			MorningOut:         "13:02",
 			AfternoonIn:        "13:55",
 			AfternoonOut:       "16:46",
+			FutureDay:          false,
 		},
 		{
 			Type:               "normal",
@@ -128,6 +129,7 @@ func TestGetData(t *testing.T) {
 			MorningOut:         "12:40",
 			AfternoonIn:        "13:41",
 			AfternoonOut:       "17:01",
+			FutureDay:          false,
 		},
 		{
 			Type:               "normal",
@@ -140,6 +142,7 @@ func TestGetData(t *testing.T) {
 			MorningOut:         "13:02",
 			AfternoonIn:        "13:56",
 			AfternoonOut:       "16:40",
+			FutureDay:          false,
 		},
 		{
 			Type:               "normal",
@@ -152,6 +155,7 @@ func TestGetData(t *testing.T) {
 			MorningOut:         "12:32",
 			AfternoonIn:        "13:37",
 			AfternoonOut:       "17:10",
+			FutureDay:          false,
 		},
 		{
 			Type:               "actual",
@@ -164,6 +168,20 @@ func TestGetData(t *testing.T) {
 			MorningOut:         "---",
 			AfternoonIn:        "---",
 			AfternoonOut:       "---",
+			FutureDay:          false,
+		},
+		{
+			Type:               "normal",
+			Date:               "2019-07-06",
+			Balance:            "0:00",
+			BalanceAccrual:     "0:00",
+			Unjustified:        "0:00",
+			UnjustifiedAccrual: "0:00",
+			MorningIn:          "---",
+			MorningOut:         "---",
+			AfternoonIn:        "---",
+			AfternoonOut:       "---",
+			FutureDay:          true,
 		},
 	})
 }
