@@ -45,8 +45,7 @@ export function refreshWithToken(token) {
 export function setDays(newDays) {
     days = newDays.reverse()
     // remove all "future" days
-    console.log(days)
-    while (days.length && (days[0].Type !== "atual")) {
+    while (days.length && days[0].FutureDay) {
         days.shift()
     }
 

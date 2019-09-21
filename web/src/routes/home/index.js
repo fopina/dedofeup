@@ -19,8 +19,8 @@ export default class Home extends Component {
 	refresh = () => {
 		this.setState({ loading: true })
 		refreshWithToken(getToken()).then((data) => {
-			this.setState({ loading: false })
 			setDays(data.Days)
+			this.setState({ loading: false })
 		}).catch((error) => {
 			this.setState({ loading: false })
 			if (error.response && error.response.data) {
